@@ -64,6 +64,21 @@ class ModelObjectGenerator extends GeneratorForAnnotation<ModelGen>{
     }
     buffer.writeln("\t;"); // for return
     buffer.writeln("\t}"); // for operator == function
+
+    // write getUniqueKey
+    buffer.writeln(''); // new Line
+    buffer.writeln("\tString getUniqueKey(){");
+    buffer.writeln("\t\treturn ");
+    for (final field in visitor.fields.entries){
+      if (field.value.isComparator)
+        if (field.value.isTypical)
+          buffer.writeln("\t\t\t${field.key} + '_' +");
+        else
+          buffer.writeln("\t\t\t${field.key}.getUniqueKey() + '_' +");
+    }
+    buffer.writeln("\t\t\t'';");
+    buffer.writeln("\t}"); // for getUniqueKey
+
     buffer.writeln("}"); // for class
 
     // write FromJson

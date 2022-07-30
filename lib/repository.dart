@@ -8,6 +8,8 @@ abstract class Repository{
 
   add(item) => db.add(item);
 
+  remove(item) => db.delete(item);
+
   get(Where where){
     return db.read().where((e)=>where(e));
   }

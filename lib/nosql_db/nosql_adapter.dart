@@ -1,4 +1,4 @@
 abstract class NosqlAdapter{
   fromJson(json);
-  toJson(obj);
+  toJson(obj) => obj.toJson();
 }
