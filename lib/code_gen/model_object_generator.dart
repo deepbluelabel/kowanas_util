@@ -72,7 +72,7 @@ class ModelObjectGenerator extends GeneratorForAnnotation<ModelGen>{
     for (final field in visitor.fields.entries){
       if (field.value.isComparator)
         if (field.value.isTypical)
-          buffer.writeln("\t\t\t${field.key} + '_' +");
+          buffer.writeln("\t\t\t${field.key}.toString() + '_' +");
         else
           buffer.writeln("\t\t\t${field.key}.getUniqueKey() + '_' +");
     }
