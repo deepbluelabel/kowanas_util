@@ -19,6 +19,7 @@ dependencies:
   firebase_core: ^1.20.0
   cloud_firestore: ^3.4.1
   universal_html: ^2.0.8
+  intl: ^0.18.0
 
 dev_dependencies:
   flutter_test:
