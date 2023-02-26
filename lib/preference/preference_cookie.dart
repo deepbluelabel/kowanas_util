@@ -9,6 +9,9 @@ class PreferenceCookie extends Preference{
   Storage? cookie;
 
   @override
+  containsKey(key) => cookie!.containsKey(key);
+
+  @override
   getBool(key) => cookie![key]! == 'true';
 
   @override

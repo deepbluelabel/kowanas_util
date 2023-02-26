@@ -5,6 +5,7 @@ import 'preference_cookie.dart';
 
 abstract class Preference{
   get internalInstance;
+  containsKey(key);
   getString(key);
   getInt(key);
   getBool(key);
@@ -24,6 +25,9 @@ class PreferenceNative extends Preference{
   factory PreferenceNative() => _instance;
 
   SharedPreferences? prefs;
+
+  @override
+  containsKey(key) => prefs!.containsKey(key);
 
   @override
   getBool(key) => prefs!.getBool(key);
