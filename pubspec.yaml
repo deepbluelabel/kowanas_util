@@ -20,6 +20,7 @@ dependencies:
   cloud_firestore: ^3.4.1
   universal_html: ^2.0.8
   intl: ^0.18.0
+  uuid: ^3.0.7
 
 dev_dependencies:
   flutter_test:
