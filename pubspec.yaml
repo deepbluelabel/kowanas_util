@@ -21,6 +21,7 @@ dependencies:
   universal_html: ^2.0.8
   intl: ^0.18.0
   uuid: ^3.0.7
+  build_runner: ^2.3.3
 
 dev_dependencies:
   flutter_test:
