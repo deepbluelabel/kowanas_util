@@ -97,6 +97,25 @@ class ModelObjectGenerator extends GeneratorForAnnotation<ModelGen>{
     }
     buffer.writeln("\t);"); // for return
     buffer.writeln("}"); // from fromJson function
+
+    // write FromClient
+    buffer.writeln(''); // new line
+    buffer.writeln("_${visitor.className}FromClient(json){");
+    buffer.writeln('\tfinal ${visitor.className.toLowerCase()} = ${visitor.className}(');
+    for (final field in visitor.fields.entries){
+      if (field.value.isFinal)
+        buffer.writeln('\t\t${field.key}: json[\'${field.key}\'],');
+    }
+    buffer.writeln('\t);');
+    buffer.writeln(''); // new line
+
+    for (final field in visitor.fields.entries){
+      if (field.value.isFinal == false)
+        buffer.writeln('\t\tif (json[\'${field.key}\'] != null) ${visitor.className.toLowerCase()}.${field.key} = json[\'${field.key}\'];');
+    }
+
+    buffer.writeln("\treturn ${visitor.className.toLowerCase()};"); // for return
+    buffer.writeln("}"); // from fromJson function
     return buffer.toString();
   }
 }

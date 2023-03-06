@@ -4,11 +4,11 @@ import 'package:kowanas_util/memory_db/memory_db.dart';
 import 'package:kowanas_util/model.dart';
 import 'package:kowanas_util/repository.dart';
 
-part 'user.g.dart';
+part 'device.g.dart';
 
 @ModelObject
-class User extends _User{
-  User({
+class Device extends _Device{
+  Device({
     int uid = Model.UNDEFINED_VALUE_INT,
     @comparator @fixed required String uuid,
     String deviceId = Model.UNDEFINED_VALUE,
@@ -22,12 +22,13 @@ class User extends _User{
       package: package
   );
 
-  factory User.fromJson(json) => _UserFromJson(json);
+  factory Device.fromJson(json) => _DeviceFromJson(json);
+  factory Device.fromClient(json) => _DeviceFromClient(json);
 }
 
-class UserRepository extends Repository{
+class DeviceRepository extends Repository{
   String? uuid;
-  UserRepository():super(db:MemoryDB());
+  DeviceRepository():super(db:MemoryDB());
 
   @override
   init() async {

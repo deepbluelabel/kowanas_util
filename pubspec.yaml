@@ -22,6 +22,8 @@ dependencies:
   intl: ^0.18.0
   uuid: ^3.0.7
   build_runner: ^2.3.3
+  http: ^0.13.5
+  cp949_codec: ^1.0.0
 
 dev_dependencies:
   flutter_test:
