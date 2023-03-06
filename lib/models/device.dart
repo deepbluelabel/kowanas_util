@@ -4,6 +4,8 @@ import 'package:kowanas_util/memory_db/memory_db.dart';
 import 'package:kowanas_util/model.dart';
 import 'package:kowanas_util/repository.dart';
 
+import '../client/basic_api.dart';
+
 part 'device.g.dart';
 
 @ModelObject
@@ -27,13 +29,18 @@ class Device extends _Device{
 }
 
 class DeviceRepository extends Repository{
-  String? uuid;
+  Device? me;
   DeviceRepository():super(db:MemoryDB());
 
   @override
   init() async {
-    uuid = await KowanasUUID.uuidSaved;
+    final uuid = await KowanasUUID.uuidSaved;
     print (uuid);
+    final api = BasicAPI();
+    try {
+      me = api.getDevice(uuid);
+    }catch (e){
+    }
     return super.init();
   }
 }
