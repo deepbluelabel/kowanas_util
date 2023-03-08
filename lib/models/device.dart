@@ -14,7 +14,7 @@ class Device extends _Device{
     int uid = Model.UNDEFINED_VALUE_INT,
     @comparator @fixed required String uuid,
     String deviceId = Model.UNDEFINED_VALUE,
-    @fixed required createTime,
+    @fixed required int createTime,
     @fixed required String package
   }):super(
       uid: uid,
@@ -38,8 +38,11 @@ class DeviceRepository extends Repository{
     print (uuid);
     final api = BasicAPI();
     try {
-      me = api.getDevice(uuid);
+      me = await api.getDevice(uuid);
     }catch (e){
+      me = Device(uuid: uuid, createTime: 112345, package: 'test');
+      if (me != null)
+        me?.uid = await api.addDevice(me!);
     }
     return super.init();
   }

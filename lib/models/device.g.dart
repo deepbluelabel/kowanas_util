@@ -10,7 +10,7 @@ abstract class _Device extends Model {
   int uid;
   final String uuid;
   String deviceId;
-  final dynamic createTime;
+  final int createTime;
   final String package;
 
   _Device({
