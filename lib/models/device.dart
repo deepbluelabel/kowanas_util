@@ -1,10 +1,15 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:kowanas_util/code_gen/annotations.dart';
+import 'package:kowanas_util/kowanas_exception.dart';
 import 'package:kowanas_util/kowanas_uuid.dart';
 import 'package:kowanas_util/memory_db/memory_db.dart';
 import 'package:kowanas_util/model.dart';
 import 'package:kowanas_util/repository.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import '../client/basic_api.dart';
+import '../kowanas_datetime.dart';
 
 part 'device.g.dart';
 
@@ -37,12 +42,27 @@ class DeviceRepository extends Repository{
     final uuid = await KowanasUUID.uuidSaved;
     print (uuid);
     final api = BasicAPI();
+    String deviceToken = 'no token';
+    if (kIsWeb != true)
+      deviceToken = await FirebaseMessaging.instance.getToken() ?? deviceToken;
     try {
       me = await api.getDevice(uuid);
+      if (me == null){
+        PackageInfo packageInfo = await PackageInfo.fromPlatform();
+        me = Device(uuid: uuid, createTime: KowanasDateTime.timestamp,
+            package: packageInfo.packageName, deviceId: deviceToken);
+        final uid = await api.addDevice(me!);
+        if (uid == Model.UNDEFINED_VALUE_INT)
+          throw KowanasException.networkException;
+        else me!.uid = uid;
+      }else {
+        if (deviceToken != null && deviceToken != me!.deviceId) {
+          me!.deviceId = deviceToken;
+          if (await api.updateDevice(me!) == false)
+            throw KowanasException.networkException;
+        }
+      }
     }catch (e){
-      me = Device(uuid: uuid, createTime: 112345, package: 'test');
-      if (me != null)
-        me?.uid = await api.addDevice(me!);
     }
     return super.init();
   }

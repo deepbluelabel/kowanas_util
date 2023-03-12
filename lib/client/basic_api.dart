@@ -13,24 +13,32 @@ class BasicAPI extends ApiHandler {
   getDevice(uuid) async{
     try {
       final response = await get(_uri, '/users/device?uuid=${uuid}');
-      print (response);
-      if (response['result'] == false) throw Exception();
+      if (response['result'] == false) return null;
       return Device.fromClient(response['device']);
     }catch (e){
       print('failed to get device: ${e}');
-      throw Exception();
+      throw e;
     }
   }
 
   addDevice(Device device) async{
     try {
       final response = await post(_uri, '/users/device', body: device.toJson());
-      print (response);
-      if (response['result'] == false) throw Exception();
+      if (response['result'] == false) return Model.UNDEFINED_VALUE_INT;
       return response['uid'];
     }catch (e){
       print('failed to add device: ${e}');
-      return Model.UNDEFINED_VALUE_INT;
+      throw e;
+    }
+  }
+
+  updateDevice(Device device) async{
+    try {
+      final response = await put(_uri, '/users/device', body: device.toJson());
+      return response['result'];
+    }catch (e){
+      print('failed to update device: ${e}');
+      throw e;
     }
   }
 }
