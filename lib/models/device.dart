@@ -11,6 +11,8 @@ import 'package:package_info_plus/package_info_plus.dart';
 import '../client/basic_api.dart';
 import '../kowanas_datetime.dart';
 
+// flutter pub run build_runner build --delete-conflicting-outputs
+
 part 'device.g.dart';
 
 @ModelObject

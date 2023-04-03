@@ -36,3 +36,12 @@ class Fixed {
 }
 
 const fixed = Fixed();
+
+
+
+
+class StringsGen {
+  const StringsGen();
+}
+
+const StringsObject = StringsGen();
