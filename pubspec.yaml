@@ -26,6 +26,7 @@ dependencies:
   package_info_plus: ^3.0.3
   source_gen: ^1.2.2
   build_runner: ^2.3.3
+  google_mlkit_translation: ^0.5.0
 
 dev_dependencies:
   flutter_test:

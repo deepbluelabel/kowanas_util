@@ -10,11 +10,11 @@ class ApiHandler{
   int tokenExpiration = 0;
 
   _getHeader({header}){
-    if (header == null) return {'token':token};
-    else{
-      header['token'] = token;
-      return header;
-    }
+    final headers = Map<String, String>();
+    if (header != null) headers.addAll(header);
+//    headers['Authorization'] = 'Bearer ${token}';
+    headers['Content-Type'] = 'application/json; charset=UTF-8';
+    return headers;
   }
 
   jsonToString(Map<String, String> data){
@@ -55,12 +55,20 @@ class ApiHandler{
   post(uri, path, {Map<String, dynamic>? body}) async {
     final client = http.Client();
     final url = Uri.parse(uri + path);
-    final http.Response response = await client.post(url,
-        headers: _getHeader(
-            header: {'Content-Type': 'application/json; charset=UTF-8'}),
-        body: json.encode(body));
-    if (response.statusCode != 200) throw KowanasException.networkException;
-    return jsonDecode(response.body);
+    try {
+      var response;
+      final headers = _getHeader();
+      if (body == null){
+        response = await client.post(url, headers: headers);
+      }else {
+        response = await client.post(url, headers: headers,
+            body: json.encode(body));
+      }
+      if (response.statusCode != 200) throw KowanasException.networkException;
+      return jsonDecode(response.body);
+    }catch (e){
+      print ('error'+e.toString());
+    }
   }
 
   put(uri, path, {Map<String, dynamic>? body}) async {

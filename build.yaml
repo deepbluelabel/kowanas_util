@@ -5,10 +5,21 @@ targets:
         generate_for:
           - lib/models/*.dart
 
+      kowanas_util|strings_object:
+        generate_for:
+          - lib/res/*.dart
+
 builders:
   model_object:
     import: "package:kowanas_util/code_gen/builder.dart"
     builder_factories: ["modelObjectBuilder"]
     build_extensions: {".dart":[".g.dart"]}
+    auto_apply: dependents
+    build_to: source
+
+  strings_object:
+    import: "package:kowanas_util/code_gen/builder.dart"
+    builder_factories: ["stringsObjectBuilder"]
+    build_extensions: {".dart":[".s.dart"]}
     auto_apply: dependents
     build_to: source
