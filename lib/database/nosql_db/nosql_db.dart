@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:kowanas_util/database.dart';
+import 'package:kowanas_util/database/kowanas_db.dart';
 import 'package:kowanas_util/model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'nosql_adapter.dart';
 
-class NosqlDB extends Database{
+class NosqlDB extends KowanasDB{
   final records = Map<int, Model>();
   late var prefs;
   late String name;
@@ -32,7 +32,7 @@ class NosqlDB extends Database{
   _isExist(record) => records.values.any((e)=>e==record);
 
   @override
-  read() {
+  read({where}) {
     return records.values;
   }
 

@@ -3,12 +3,12 @@ import 'package:flutter/foundation.dart';
 import 'package:kowanas_util/code_gen/annotations.dart';
 import 'package:kowanas_util/kowanas_exception.dart';
 import 'package:kowanas_util/kowanas_uuid.dart';
-import 'package:kowanas_util/memory_db/memory_db.dart';
 import 'package:kowanas_util/model.dart';
 import 'package:kowanas_util/repository.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import '../client/basic_api.dart';
+import '../database/memory_db/memory_db.dart';
 import '../kowanas_datetime.dart';
 
 // flutter pub run build_runner build --delete-conflicting-outputs

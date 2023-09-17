@@ -79,6 +79,18 @@ class ModelObjectGenerator extends GeneratorForAnnotation<ModelGen>{
     buffer.writeln("\t\t\t'';");
     buffer.writeln("\t}"); // for getUniqueKey
 
+    // write fields
+    buffer.writeln(''); // new Line
+    buffer.writeln("\tstatic List<Field> fields = [");
+    for (final field in visitor.fields.entries){
+      final type = _getFieldType(field.value.elementType);
+      final name = field.value.name;
+      final required = field.value.isFinal;
+      final primary = field.value.name == 'uid';
+      buffer.writeln("\t\tField(\'$type\', \'$name\', $required, $primary),");
+    }
+    buffer.writeln("\t];"); // for getUniqueKey
+
     buffer.writeln("}"); // for class
 
     // write FromJson
@@ -117,5 +129,22 @@ class ModelObjectGenerator extends GeneratorForAnnotation<ModelGen>{
     buffer.writeln("\treturn ${visitor.className.toLowerCase()};"); // for return
     buffer.writeln("}"); // from fromJson function
     return buffer.toString();
+  }
+
+  String? _getFieldType(type){
+    switch(type){
+      case 'String': return 'TEXT';
+      case 'String?': return 'TEXT';
+      case 'int': return 'INTEGER';
+      case 'int?': return 'INTEGER';
+      case 'double': return 'REAL';
+      case 'double?': return 'REAL';
+      case 'num': return 'REAL';
+      case 'num?': return 'REAL';
+      case 'bool': return 'INTEGER';
+      case 'bool?': return 'INTEGER';
+      default: break;
+    }
+    return null;
   }
 }

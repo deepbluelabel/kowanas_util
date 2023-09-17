@@ -4,3 +4,12 @@ abstract class Model{
 
   String getUniqueKey();
 }
+
+class Field{
+  final String type;
+  final String name;
+  final bool required;
+  final bool primary;
+
+  Field(this.type, this.name, this.required, this.primary);
+}

@@ -1,7 +1,7 @@
-abstract class Database{
+abstract class KowanasDB{
   connect(name, adapter);
   add(record);
-  read();
+  read({where});
   update(record);
   delete(record);
 }

@@ -4,6 +4,8 @@ abstract class Repository{
 
   Repository({this.db});
 
+  connect(name) => db.connect(name);
+
   getAll() => db.read();
 
   add(item) => db.add(item);

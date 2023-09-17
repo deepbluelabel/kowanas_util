@@ -1,12 +1,11 @@
 
-import 'package:kowanas_util/database.dart';
-import 'package:kowanas_util/model.dart';
+import 'package:kowanas_util/database/kowanas_db.dart';
 
-class MemoryDB extends Database{
-  final records = <Model>[];
+class MemoryDB<T> extends KowanasDB{
+  final records = <T>[];
 
   @override
-  read() {
+  read({where}) {
     return records;
   }
 

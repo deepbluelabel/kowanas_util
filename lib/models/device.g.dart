@@ -41,6 +41,14 @@ abstract class _Device extends Model {
   String getUniqueKey() {
     return uuid.toString() + '_' + '';
   }
+
+  static List<Field> fields = [
+    Field('INTEGER', 'uid', false, true),
+    Field('TEXT', 'uuid', true, false),
+    Field('TEXT', 'deviceId', false, false),
+    Field('INTEGER', 'createTime', true, false),
+    Field('TEXT', 'package', true, false),
+  ];
 }
 
 _DeviceFromJson(json) {
